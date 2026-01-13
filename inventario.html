@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogiSmart - Gestionale Magazzino</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Logi<span>Smart</span></div>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="inventario.html">Inventario</a></li>
+                <li><a href="#">Contatti</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="inventory-main">
+        <div class="page-header">
+            <h1>IL MIO MAGAZZINO</h1>
+            <p>Pannello di Controllo Gestionale v1.5</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="card" onclick="apriInserimento()">
+                <div class="icon">➕</div>
+                <h3>Inserisci Prodotto</h3>
+                <p>Aggiungi nuovi articoli allo stock</p>
+            </div>
+
+            <div class="card" onclick="mostraTabella()">
+                <div class="icon">📋</div>
+                <h3>Leggi Magazzino</h3>
+                <p>Visualizza lo stato attuale</p>
+            </div>
+
+            <div class="card" onclick="apriRicerca()">
+                <div class="icon">🔍</div>
+                <h3>Ricerca Prodotto</h3>
+                <p>Trova rapidamente un articolo</p>
+            </div>
+
+            <div class="card" onclick="calcolaTotale()">
+                <div class="icon">💰</div>
+                <h3>Valore Totale</h3>
+                <p>Calcola il valore dell'inventario</p>
+            </div>
+
+            <div class="card danger" onclick="svuotaMagazzino()">
+                <div class="icon">🗑️</div>
+                <h3>Svuota Magazzino</h3>
+                <p>Attenzione: Azione irreversibile</p>
+            </div>
+        </div>
+    </main>
+
+    <div id="full-inventory-view" class="full-overlay">
+        <div class="inventory-container">
+            <div class="inventory-header">
+                <h2>📋 Report Completo Magazzino</h2>
+                <button onclick="chiudiMagazzino()" class="btn-close-large">Torna alla Dashboard</button>
+            </div>
+            <div class="table-wrapper">
+                <table class="minimal-table">
+                    <thead>
+                        <tr>
+                            <th>PRODOTTO</th>
+                            <th>QUANTITÀ</th>
+                            <th>PREZZO UNITARIO</th>
+                            <th>VALORE TOTALE</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="full-search-view" class="full-overlay">
+        <div class="inventory-container">
+            <div class="inventory-header">
+                <h2>🔍 Ricerca Prodotto</h2>
+                <button onclick="chiudiRicerca()" class="btn-close-large">Indietro</button>
+            </div>
+            <div class="search-box-modern">
+                <input type="text" id="input-cerca-moderno" placeholder="Scrivi il nome del prodotto..." onkeyup="eseguiRicerca()">
+            </div>
+            <div id="search-result-area" class="table-wrapper" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <div id="full-value-view" class="full-overlay">
+        <div class="inventory-container" style="text-align: center;">
+            <div class="inventory-header">
+                <h2>💰 Valore Economico Inventario</h2>
+                <button onclick="chiudiValore()" class="btn-close-large">Indietro</button>
+            </div>
+            <div class="value-card-big">
+                <p>Il valore complessivo della merce in stock è:</p>
+                <h1 id="valore-numerico">€ 0.00</h1>
+                <div id="dettaglio-valore" style="margin-top: 20px; color: #7f8c8d;"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-inserimento" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3>📦 Nuovo Prodotto</h3>
+            <p>Inserisci i dettagli del nuovo articolo</p>
+            <div class="form-container">
+                <input type="text" id="nome-prodotto" placeholder="Nome Articolo">
+                <input type="number" id="quantita-prodotto" placeholder="Quantità attuale">
+                <input type="number" id="prezzo-prodotto" placeholder="Prezzo (€)">
+                <input type="number" id="soglia-prodotto" placeholder="Soglia minima (per avviso)">
+            </div>
+            <div class="modal-actions" style="margin-top: 20px;">
+                <button onclick="salvaProdotto()" class="btn-save" style="background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Salva Articolo</button>
+                <button onclick="chiudiModal()" class="btn-cancel" style="background: #7f8c8d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; margin-left: 10px;">Annulla</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
